@@ -23,4 +23,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/frontend', [App\Http\Controllers\Frontend\FrontendController::class, 'index'])->name('index');
+Route::get('/about', [App\Http\Controllers\Frontend\FrontendController::class, 'about'])->name('about');
