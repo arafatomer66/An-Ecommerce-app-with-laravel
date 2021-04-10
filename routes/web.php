@@ -20,8 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
-Auth::routes();
 
-Route::get('/frontend', [App\Http\Controllers\Frontend\FrontendController::class, 'index'])->name('index');
-Route::get('/about', [App\Http\Controllers\Frontend\FrontendController::class, 'about'])->name('about');
