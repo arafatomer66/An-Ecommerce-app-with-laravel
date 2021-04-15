@@ -49,7 +49,7 @@
 								@if ( $category->image == NULL )
 									No Image Attached
 								@else
-									<img src="{{ asset('images/category/' . $category->image ) }}" width="40">
+									<img src="{{ asset('img/category/' . $category->image ) }}" width="100">
 								@endif
 							</td>
 							<td>

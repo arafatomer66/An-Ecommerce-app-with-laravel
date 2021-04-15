@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
+use File;
 
 class CategoryController extends Controller
 {
@@ -25,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.category.create');
+        $parent_categories = Category::orderBy('name' , 'asc')->where('parent_id' , 0)->get();
+        return view('backend.pages.category.create' , compact('parent_categories'));
     }
 
     /**
@@ -36,7 +40,35 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Form Validation
+        $request->validate([
+            'cat_name'  => 'required|max:255',
+        ],
+        [
+            'cat_name.required'     => 'Please Insert a Caregory Name',
+        ]);
+
+        // Store a Category in DB
+        $category = new Category();
+        $category->name             = $request->cat_name;
+        $category->slug             = Str::slug($request->cat_name);
+        $category->description      = $request->cat_description;
+        $category->parent_id        = $request->parent_id;
+
+        if ( $request->image )
+        {
+            $image = $request->file('image');
+            $img = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('img/category/' . $img);
+            Image::make($image)->save($location);
+            $category->image = $img;
+        }
+
+        $category->save();
+
+        // Write Flash Message
+
+        return redirect()->route('manageCategory');
     }
 
     /**
