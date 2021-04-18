@@ -60,7 +60,7 @@
 								@endif
 							</td>
 							<td>
-								{{-- <div class="btn-group">
+								<div class="btn-group">
 									<a href="{{ route('editCategory', $category->id) }}" class="btn btn-success btn-sm">Update</a>
 									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteCategory{{ $category->id }}">Delete</button>
 								</div>
@@ -84,7 +84,7 @@
 								      </div>
 								    </div>
 								  </div>
-								</div> --}}
+								</div>
 
 							</td>
 					    </tr>

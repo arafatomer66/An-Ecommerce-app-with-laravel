@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -88,9 +89,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Category $category , $id)
     {
-        //
+        $parent_categories = Category::orderBy('name' , 'asc')->where('parent_id' , 0)->get();
+        $category = Category::find($id);
+        if(!is_null($category)) {
+            return view('backend.pages.category.edit' , compact('parent_categories' , 'category'));
+        } else {
+        return route('manageCategory');
+        }
     }
 
     /**
@@ -100,9 +107,43 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $category , $id)
     {
-        //
+        $request->validate([
+            'cat_name'  => 'required|max:255',
+        ],
+        [
+            'cat_name.required'     => 'Please Insert a Caregory Name',
+        ]);
+
+        // Store a Category in DB
+        $category = Category::find($id);
+        $category->name             = $request->cat_name;
+        $category->slug             = Str::slug($request->cat_name);
+        $category->description      = $request->cat_description;
+        $category->parent_id        = $request->parent_id;
+
+        if ( $request->image )
+        {
+            //delete old image
+
+            if(File::exists('img/category' . $category->image)) {
+                File::delete('img/category' . $category->image);
+            }
+
+            //upload new image
+            $image = $request->file('image');
+            $img = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('img/category/' . $img);
+            Image::make($image)->save($location);
+            $category->image = $img;
+        }
+
+        $category->update();
+
+        // Write Flash Message
+
+        return redirect()->route('manageCategory');
     }
 
     /**
@@ -111,8 +152,29 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category , $id)
     {
-        //
+        $category = Category::find($id);
+
+        if(!is_null($category)){
+            if($category->parent_id == 0){
+                $sub_cat = Category::orderBy('name' , 'asc')->where('parent_id' , $category->id)->get();
+
+                foreach($sub_cat as $sub) {
+                    if(File::exists('img/category' . $category->image)) {
+                        File::delete('img/category' . $category->image);
+                    }
+                    $sub->delete();
+                }
+            }
+            if(File::exists('img/category' . $category->image)) {
+                File::delete('img/category' . $category->image);
+            }
+        $category->delete();
+
+        }
+        return redirect()->route('manageCategory');
+
     }
 }
+ 

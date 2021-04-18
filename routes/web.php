@@ -36,10 +36,12 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard
 */
 
 Route::group(['prefix' => '/categories'] , function() {
-   Route::get('/manage', [App\Http\Controllers\CategoryController::class, 'index'])->name('manageCategory');
-   Route::get('/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('createCategory');
-   Route::post('/create', [App\Http\Controllers\CategoryController::class, 'store'])->name('storeCategory');
-   Route::post('/edit', [App\Http\Controllers\CategoryController::class, 'edit'])->name('editCategory');
+   Route::get('/manage', [App\Http\Controllers\backend\CategoryController::class, 'index'])->name('manageCategory');
+   Route::get('/create', [App\Http\Controllers\backend\CategoryController::class, 'create'])->name('createCategory');
+   Route::post('/create', [App\Http\Controllers\backend\CategoryController::class, 'store'])->name('storeCategory');
+   Route::get('/edit/{id}', [App\Http\Controllers\backend\CategoryController::class, 'edit'])->name('editCategory');
+   Route::post('/edit/{id}', [App\Http\Controllers\backend\CategoryController::class, 'update'])->name('updateCategory');
+   Route::post('/delete/{id}', [App\Http\Controllers\backend\CategoryController::class, 'destroy'])->name('deleteCategory');
 });
 
 
