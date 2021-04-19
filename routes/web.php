@@ -46,3 +46,17 @@ Route::group(['prefix' => '/categories'] , function() {
 
 
 
+	// 	Product Brand Routes
+	Route::group(['prefix' => '/brands'], function(){
+		Route::get('/manage', [App\Http\Controllers\backend\BrandController::class, 'index'])->name('manageBrand');
+		// Show Create Page and Store after Submit
+		Route::get('/create', 'backend\BrandController@create')->name('createBrand');
+		Route::post('/create', 'backend\BrandController@store')->name('storeBrand');
+		// Show Edit Page and Update after Submit
+		Route::get('/edit/{id}', 'backend\BrandController@edit')->name('editBrand');
+		Route::post('/edit/{id}', 'backend\BrandController@update')->name('updateBrand');
+		// Delete Brand From Manage
+		Route::post('/delete/{id}', 'backend\BrandController@destroy')->name('deleteBrand');
+	});
+
+

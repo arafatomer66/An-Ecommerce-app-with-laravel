@@ -19,10 +19,8 @@
           <span class="menu-item-label">Manage Brand</span>
         </a><!-- br-menu-link -->
         <ul class="br-menu-sub">
-          {{-- <li class="sub-item"><a href="{{ route('manageBrand') }}" class="sub-link">All Brand</a></li>
-          <li class="sub-item"><a href="{{ route('createBrand') }}" class="sub-link">Add New Brand</a></li> --}}
-          <li class="sub-item"><a  class="sub-link">All Brand</a></li>
-          <li class="sub-item"><a  class="sub-link">Add New Brand</a></li>
+          <li class="sub-item"><a href="{{ route('manageBrand') }}" class="sub-link">All Brand</a></li>
+          <li class="sub-item"><a href="{{ route('createBrand') }}" class="sub-link">Add New Brand</a></li>
         </ul>
       </li>
       <!-- Manage Brand End -->
