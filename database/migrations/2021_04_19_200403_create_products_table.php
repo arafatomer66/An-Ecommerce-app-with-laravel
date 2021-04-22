@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
             $table->integer('regular_price');
-            $table->integer('offer_price')->default(0);
-            $table->integer('category_id');
-            $table->integer('quantity')->default(0);
-            $table->integer('brand_id');
+            $table->integer('offer_price')->nullable();
+            $table->integer('category_id')->unsigned();
+            $table->integer('quantity')->default(5);
+            $table->tinyInteger('status')->default(0);
+            $table->integer('brand_id')->unsigned();
             $table->timestamps();
         });
     }

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\backend;
+use App\Models\backend\Brand;
+use App\Models\backend\Category;
+use App\Models\Backend\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('id','desc')->get();
+        return view('backend.pages.product.manage')->with( 'products' , $products);
     }
 
     /**

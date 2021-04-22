@@ -47,10 +47,8 @@
           <span class="menu-item-label">Manage Product</span>
         </a><!-- br-menu-link -->
         <ul class="br-menu-sub">
-          {{-- <li class="sub-item"><a href="{{ route('manageProduct') }}" class="sub-link">All Products</a></li>
-          <li class="sub-item"><a href="{{ route('createProduct') }}" class="sub-link">Add New Product</a></li> --}}
-          <li class="sub-item"><a  class="sub-link">All Products</a></li>
-          <li class="sub-item"><a  class="sub-link">Add New Products</a></li>
+          <li class="sub-item"><a href="{{ route('manageProduct') }}" class="sub-link">All Products</a></li>
+          <li class="sub-item"><a href="{{ route('createProduct') }}" class="sub-link">Add New Product</a></li>
         </ul>
       </li>
       <!-- Manage Category End -->
