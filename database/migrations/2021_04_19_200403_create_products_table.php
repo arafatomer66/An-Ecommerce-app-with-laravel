@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('quantity')->default(5);
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('is_featured')->default(0);
             $table->integer('brand_id')->unsigned();
             $table->timestamps();
         });

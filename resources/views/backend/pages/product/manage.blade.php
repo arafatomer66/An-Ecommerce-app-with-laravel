@@ -33,6 +33,7 @@
 				      <th scope="col">Offered price</th>
 				      <th scope="col">Quantity</th>
 				      <th scope="col">Status</th>
+				      <th scope="col">Featured</th>
 				      <th scope="col">Brand</th>
 				      <th scope="col">Cateogry</th>
 				      <th scope="col">Action</th>
@@ -63,6 +64,7 @@
 							<td>{{ $product->offer_price }}</td>
 							<td>{{ $product->quantity }}</td>
 							<td>{{ $product->status }}</td>
+							<td>{{ $product->is_featured }}</td>
 							{{-- <td>{{ $product->description }}</td> --}}
 
                             <td>{{ $product->category->name }}</td>

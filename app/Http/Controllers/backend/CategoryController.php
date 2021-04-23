@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Backend\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -177,4 +177,3 @@ class CategoryController extends Controller
 
     }
 }
- 
