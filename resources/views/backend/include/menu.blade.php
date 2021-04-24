@@ -62,11 +62,8 @@
           <span class="menu-item-label">Manage Division</span>
         </a><!-- br-menu-link -->
         <ul class="br-menu-sub">
-          {{-- <li class="sub-item"><a href="{{ route('manageDivision') }}" class="sub-link">All Division</a></li>
-          <li class="sub-item"><a href="{{ route('createDivision') }}" class="sub-link">Add New Division</a></li> --}}
-
-          <li class="sub-item"><a  class="sub-link">All Division</a></li>
-          <li class="sub-item"><a  class="sub-link">Add New Division</a></li>
+          <li class="sub-item"><a href="{{ route('manageDivision') }}" class="sub-link">All Division</a></li>
+          <li class="sub-item"><a href="{{ route('createDivision') }}" class="sub-link">Add New Division</a></li>
         </ul>
       </li>
       <!-- Manage Category End -->
@@ -79,11 +76,9 @@
           <span class="menu-item-label">Manage District</span>
         </a><!-- br-menu-link -->
         <ul class="br-menu-sub">
-          {{-- <li class="sub-item"><a href="{{ route('manageDistrict') }}" class="sub-link">All District</a></li>
-          <li class="sub-item"><a href="{{ route('createDistrict') }}" class="sub-link">Add New District</a></li> --}}
+          <li class="sub-item"><a href="{{ route('manageDistrict') }}" class="sub-link">All District</a></li>
+          <li class="sub-item"><a href="{{ route('createDistrict') }}" class="sub-link">Add New District</a></li>
 
-          <li class="sub-item"><a  class="sub-link">All District</a></li>
-          <li class="sub-item"><a  class="sub-link">Add New District</a></li>
         </ul>
       </li>
       <!-- Manage Category End -->

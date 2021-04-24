@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Models\Backend;
+namespace App\Models\backend;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Division extends Model
 {
-    public function districts(){
-    	return $this->hasMany(District::class);
+    use HasFactory;
+
+    public function districts() {
+        return $this->hasMany(District::class);
     }
 }

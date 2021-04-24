@@ -77,3 +77,30 @@ Route::group(['prefix' => '/categories'] , function() {
 	});
 
 
+    // Division Routes
+	Route::group(['prefix' => '/divisions'], function(){
+		Route::get('/manage',  [App\Http\Controllers\backend\DivisionController::class, 'index'])->name('manageDivision');
+		// Show Create Page and Store after Submit
+		Route::get('/create',  [App\Http\Controllers\backend\DivisionController::class, 'create'])->name('createDivision');
+		Route::post('/create',  [App\Http\Controllers\backend\DivisionController::class, 'store'])->name('storeDivision');
+		// Show Edit Page and Update after Submit
+		Route::get('/edit/{id}',  [App\Http\Controllers\backend\DivisionController::class, 'edit'])->name('editDivision');
+		Route::post('/edit/{id}',  [App\Http\Controllers\backend\DivisionController::class, 'update'])->name('updateDivision');
+		// Delete Brand From Manage
+		Route::post('/delete/{id}',  [App\Http\Controllers\backend\DivisionController::class, 'destroy'])->name('deleteDivision');
+	});
+
+	// District Routes
+	Route::group(['prefix' => '/districts'], function(){
+		Route::get('/manage', [App\Http\Controllers\backend\DistrictController::class, 'index'])->name('manageDistrict');
+		// Show Create Page and Store after Submit
+		Route::get('/create', [App\Http\Controllers\backend\DistrictController::class, 'create'])->name('createDistrict');
+		Route::post('/create',  [App\Http\Controllers\backend\DistrictController::class, 'store'])->name('storeDistrict');
+		// Show Edit Page and Update after Submit
+		Route::get('/edit/{id}',  [App\Http\Controllers\backend\DistrictController::class, 'edit'])->name('editDistrict');
+		Route::post('/edit/{id}',  [App\Http\Controllers\backend\DistrictController::class, 'update'])->name('updateDistrict');
+		// Delete Brand From Manage
+		Route::post('/delete/{id}',  [App\Http\Controllers\backend\DistrictController::class, 'destroy'])->name('deleteDistrict');
+	});
+
+
