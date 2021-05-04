@@ -5,7 +5,7 @@
       <div class="br-pagetitle">
         <i class="icon ion-ios-home-outline"></i>
         <div>
-          <h4>Edit Category</h4>
+          <h4>Update Category</h4>
           <p class="mg-b-0">Do bigger things with Bracket plus, the responsive bootstrap 4 admin template.</p>
         </div>
       </div>
@@ -21,27 +21,26 @@
             <div class="col-md">
               <div class="card card-body">
                 <!-- Create New Category Form Start -->
-                <form action="{{ route('updateCategory' , $category->id) }}" method="POST" enctype="multipart/form-data">
-                	@csrf
+                <form action="{{ route('updateCategory', $category->id) }}" method="POST" enctype="multipart/form-data">
+                	@csrf                	
                 	<div class="form-group">
                 		<label>Category Name</label>
-                		<input type="text" name="cat_name" class="form-control" value="{{$category->name}}">
+                		<input type="text" name="cat_name" class="form-control" value="{{ $category->name }}">
                 	</div>
 
                 	<div class="form-group">
                 		<label>Description</label>
-                		<textarea class="form-control" name="cat_description" rows="3">{{$category->description}}</textarea>
+                		<textarea class="form-control" name="cat_description" rows="3">{{ $category->description }}</textarea>
                 	</div>
+
                 	<div class="form-group">
-                		<label>Category Thumbnail</label>
-
-                        @if($category->image ==NULL)
-                               No Image Uploaded  <br>
-                        @else
-                             <img src="{{asset('img/category/' . $category->image)}}" width="100" alt=""> <br>
-                        @endif
+                		<label>Category Thumbnail</label><br>
+                    @if ( $category->image == NULL )
+                      No Image Uploaded
+                    @else 
+                      <img src="{{ asset('images/category/' . $category->image ) }}" width="100"><br><br>
+                    @endif
                 		<input type="file" name="image" class="form-control-file">
-
                 	</div>
 
                 	<div class="form-group">
@@ -50,18 +49,18 @@
                 			<option value="0">Select a Primary Category (Optional)</option>
                 			@foreach( $parent_categories as $parent )
                 				<option value="{{ $parent->id }}" {{ $parent->id == $category->parent_id ? 'selected' : '' }}>{{ $parent->name }}</option>
-                			@endforeach
+                			@endforeach                			
                 		</select>
                 	</div>
 
                 	<div class="form-group">
-                		<input type="submit" name="update" value="Update Category" class="btn btn-primary">
+                		<input type="submit" name="saveChanges" value="Save Changes" class="btn btn-primary">
                 	</div>
 
                 </form>
                 <!-- Create New Category Form End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\backend;
-use App\Models\backend\Brand;
-use App\Models\backend\Category;
-use App\Models\Backend\Product;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Brand;
+use App\Models\Backend\Category;
+use App\Models\Backend\Product;
+use App\Models\Backend\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use File;
-use App\Models\Backend\ProductImage;
 
 class ProductController extends Controller
 {
@@ -21,8 +21,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id','desc')->get();
-        return view('backend.pages.product.manage')->with( 'products' , $products);
+        $products = Product::orderBy('id', 'desc')->get();
+        return view('backend.pages.product.manage', compact('products'));
     }
 
     /**
@@ -44,14 +44,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required|max:100',
-            'r_price'   => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'status' => 'required|numeric',
-            'brand_id'  => 'required|numeric',
-            'category_id'  => 'required|numeric',
-            'p_image'   => 'required'
+            'title'             => 'required|max:255',
+            'description'       => 'required|max:1000',
+            'r_price'           => 'required|numeric',
+            'status'            => 'required|numeric',
+            'brand_id'          => 'required|numeric',
+            'category_id'       => 'required|numeric',
+            'p_image'           => 'required',
         ]);
 
         $product = new Product;
@@ -70,7 +69,7 @@ class ProductController extends Controller
         if ( count($request->p_image) > 0 ){
             foreach ( $request->p_image as $image ){
                 $img = rand(0,100000) . '.' . $image->getClientOriginalExtension();
-                $location = public_path('img/products/' . $img);
+                $location = public_path('images/products/' . $img);
                 Image::make($image)->save($location);
 
                 $p_image = new ProductImage;
@@ -159,6 +158,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        if ( !is_null($product) )
+        {
+            $product->delete();
+        }
+        
+        if ( File::exists('images/products/' . $product->image) ){
+            File::delete('images/products/' . $product->image);
+        }
+        return redirect()->route('manageProduct');
     }
 }

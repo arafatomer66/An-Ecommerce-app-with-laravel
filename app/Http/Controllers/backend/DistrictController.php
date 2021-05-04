@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Division;
+use App\Models\Backend\District;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Models\backend\Division;
-use App\Models\backend\District;
+use Illuminate\Support\Str;
 
 class DistrictController extends Controller
 {
@@ -38,8 +40,8 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-           // Validate the Division Field
-           $request->validate([
+        // Validate the Division Field
+        $request->validate([
             'name'                  => 'required|max:255',
             'division_id'           => 'required',
         ],

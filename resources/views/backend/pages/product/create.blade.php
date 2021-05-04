@@ -22,7 +22,7 @@
               <div class="card card-body">
                 <!-- Create New Category Form Start -->
                 <form action="{{ route('storeProduct') }}" method="POST" enctype="multipart/form-data">
-                	@csrf
+                	@csrf                	
                 	<div class="form-group">
                 		<label>Product Title</label>
                 		<input type="text" name="title" class="form-control">
@@ -91,7 +91,7 @@
 
                   <div class="form-group">
                     <label>Product Main Thumbnail</label><br>
-                    <input type="file" name="p_im  age[]" class="form-control-file">
+                    <input type="file" name="p_image[]" class="form-control-file">
                   </div>
 
                   <div class="row">
@@ -133,7 +133,7 @@
                 </form>
                 <!-- Create New Category Form End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

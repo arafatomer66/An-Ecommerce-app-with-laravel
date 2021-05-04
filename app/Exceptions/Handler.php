@@ -5,8 +5,26 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+use Auth;
+use Illuminate\Auth\AuthenticationException;
+
 class Handler extends ExceptionHandler
 {
+
+    protected function unauthenticated( $request, AuthenticationException $exception ){
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        if ($request->is('admin/*')) {
+            return redirect()->guest('/login/admin');
+        }
+        if ($request->is('visitor') || $request->is('visitor/*')) {
+            return redirect()->guest('/login/visitor');
+        }
+        return redirect()->guest(route('login'));
+    }
+
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -22,20 +40,36 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
-        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Report or log an exception.
      *
+     * @param  \Throwable  $exception
      * @return void
+     *
+     * @throws \Exception
      */
-    public function register()
+    public function report(Throwable $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        parent::report($exception);
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        return parent::render($request, $exception);
+    }
+
+
 }

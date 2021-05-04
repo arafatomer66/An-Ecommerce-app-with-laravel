@@ -41,8 +41,8 @@
 							<th scope="row"> {{ $i }} </th>
 							<td>{{ $district->name }}</td>
 							<td>{{ $district->division->name }}</td>
-
-
+							
+							
 							<td>
 								<div class="btn-group">
 									<a href="{{ route('editDistrict', $district->id) }}" class="btn btn-success btn-sm">Update</a>
@@ -75,13 +75,13 @@
 					    @php
 				  			$i++;
 				  		@endphp
-				  	@endforeach
+				  	@endforeach		    
 
 				  </tbody>
 				</table>
 				<!-- Category Table End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

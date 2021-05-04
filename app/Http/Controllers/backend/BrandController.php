@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Brand;
@@ -24,7 +24,7 @@ class BrandController extends Controller
     }
 
 
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +72,7 @@ class BrandController extends Controller
         {
             $image = $request->file('image');
             $img = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('img/brand/' . $img);
+            $location = public_path('images/brand/' . $img);
             Image::make($image)->save($location);
             $brand->image = $img;
         }
@@ -84,7 +84,7 @@ class BrandController extends Controller
         return redirect()->route('manageBrand');
     }
 
-
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -130,13 +130,13 @@ class BrandController extends Controller
         if ( $request->image )
         {
             // Delete Existing Image
-            if ( File::exists('img/brand/' . $brand->image ) ){
-                File::delete('img/brand/' . $brand->image);
+            if ( File::exists('images/brand/' . $brand->image ) ){
+                File::delete('images/brand/' . $brand->image);
             }
             // Upload New Image
             $image = $request->file('image');
             $img = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('img/brand/' . $img);
+            $location = public_path('images/brand/' . $img);
             Image::make($image)->save($location);
             $brand->image = $img;
         }
@@ -158,10 +158,10 @@ class BrandController extends Controller
 
         if ( !is_null($brand) ){
             // Delete Brand Image
-            if ( File::exists('img/brand/' . $brand->image ) ){
-                        File::delete('img/brand/' . $brand->image);
+            if ( File::exists('images/brand/' . $brand->image ) ){
+                        File::delete('images/brand/' . $brand->image);
             }
-            $brand->delete();
+            $brand->delete(); 
         }
         return redirect()->route('manageBrand');
     }

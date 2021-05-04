@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\User;
+use App\Visitor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -39,7 +41,42 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:visitor');
     }
+
+    // Admin Register Page and Form
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['url'=> 'admin']);
+    }
+
+    public function createAdmin(Request $request){
+        $this->validator($request->all())->validate();
+
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/admin');
+    }
+
+
+    // Visitor Register Page and Form
+    public function showVisitorRegisterForm()
+    {
+        return view('frontend.pages.signup', ['url'=> '/visitor']);
+    }
+    public function createVisitor(Request $request){
+        $this->validator($request->all())->validate();
+        $visitor = Visitor::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/visitor');
+    }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -60,7 +97,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \App\User
      */
     protected function create(array $data)
     {

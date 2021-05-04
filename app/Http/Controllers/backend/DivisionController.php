@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\backend;
-
+namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
-use App\Models\backend\Division;
-use App\Models\backend\District;
+use App\Models\Backend\Division;
+use App\Models\Backend\District;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class DivisionController extends Controller
 {
@@ -38,13 +40,14 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the Division Field
         $request->validate([
             'name'     => 'required|max:255',
-            'priority'       => 'required',
+            'priority'       => 'required',          
         ],
         [
             'name'     => 'Please Provide Valid Division Name',
-            'priority'       => 'Please Set a Priority Number to Show on Screen',
+            'priority'       => 'Please Set a Priority Number to Show on Screen', 
         ]);
 
         $division = new Division();
@@ -92,14 +95,14 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // Validate the Division Field
-         $request->validate([
+        // Validate the Division Field
+        $request->validate([
             'name'     => 'required|max:255',
-            'priority'       => 'required',
+            'priority'       => 'required',          
         ],
         [
             'name'     => 'Please Provide Valid Division Name',
-            'priority'       => 'Please Set a Priority Number to Show on Screen',
+            'priority'       => 'Please Set a Priority Number to Show on Screen', 
         ]);
 
         $division = Division::find($id);

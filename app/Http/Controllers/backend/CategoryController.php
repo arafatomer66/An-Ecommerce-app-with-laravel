@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend;
-
+namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Category;
 use Illuminate\Http\Request;
@@ -11,6 +10,28 @@ use File;
 
 class CategoryController extends Controller
 {
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $category = Category::find($id);
+
+        if ( !is_null($category) ){
+            return view('frontend.pages.category.show', compact('category'));
+        }
+        else{
+            return redirect('/');
+        }
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +39,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name' , 'asc')->get();
-        return view('backend.pages.category.manage' , compact('categories'));
+        $categories = Category::orderBy('id', 'desc')->get();
+        return view('backend.pages.category.manage', compact('categories'));
     }
 
     /**
@@ -29,8 +50,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parent_categories = Category::orderBy('name' , 'asc')->where('parent_id' , 0)->get();
-        return view('backend.pages.category.create' , compact('parent_categories'));
+        $parent_categories = Category::orderBy('name', 'asc')->where('parent_id', 0)->get();
+        return view('backend.pages.category.create', compact('parent_categories'));
     }
 
     /**
@@ -60,7 +81,7 @@ class CategoryController extends Controller
         {
             $image = $request->file('image');
             $img = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('img/category/' . $img);
+            $location = public_path('images/category/' . $img);
             Image::make($image)->save($location);
             $category->image = $img;
         }
@@ -72,43 +93,40 @@ class CategoryController extends Controller
         return redirect()->route('manageCategory');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category , $id)
+    public function edit(Category $category, $id)
     {
-        $parent_categories = Category::orderBy('name' , 'asc')->where('parent_id' , 0)->get();
+        $parent_categories = Category::orderBy('name', 'asc')->where('parent_id', 0)->get();
+
         $category = Category::find($id);
-        if(!is_null($category)) {
-            return view('backend.pages.category.edit' , compact('parent_categories' , 'category'));
-        } else {
-        return route('manageCategory');
+
+        if ( !is_null($category) ){
+            return view('backend.pages.category.edit', compact('category', 'parent_categories'));
         }
+        else{
+            return route('manageCategory');
+        }
+
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category , $id)
+    public function update(Request $request, Category $category, $id)
     {
+        // Form Validation
         $request->validate([
             'cat_name'  => 'required|max:255',
         ],
@@ -125,23 +143,19 @@ class CategoryController extends Controller
 
         if ( $request->image )
         {
-            //delete old image
-
-            if(File::exists('img/category' . $category->image)) {
-                File::delete('img/category' . $category->image);
+            // Delete Existing Image
+            if ( File::exists('images/category/' . $category->image ) ){
+                File::delete('images/category/' . $category->image);
             }
-
-            //upload new image
+            // Upload New Image
             $image = $request->file('image');
             $img = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('img/category/' . $img);
+            $location = public_path('images/category/' . $img);
             Image::make($image)->save($location);
             $category->image = $img;
         }
 
-        $category->update();
-
-        // Write Flash Message
+        $category->save();
 
         return redirect()->route('manageCategory');
     }
@@ -149,31 +163,33 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category , $id)
+    public function destroy(Category $category, $id)
     {
         $category = Category::find($id);
 
-        if(!is_null($category)){
-            if($category->parent_id == 0){
-                $sub_cat = Category::orderBy('name' , 'asc')->where('parent_id' , $category->id)->get();
-
-                foreach($sub_cat as $sub) {
-                    if(File::exists('img/category' . $category->image)) {
-                        File::delete('img/category' . $category->image);
+        if ( !is_null($category) ){
+            // If it is a Parent Category, We Will Delete all it's Sub Category Too
+            if ( $category->parent_id == 0 )
+            {
+                $sub_cat = Category::orderBy('name', 'asc')->where('parent_id', $category->id)->get();
+                // Delete all the Sub Category and It's Images
+                foreach ($sub_cat as $sub) {
+                    if ( File::exists('images/category/' . $sub->image ) ){
+                        File::delete('images/category/' . $sub->image);
                     }
                     $sub->delete();
                 }
             }
-            if(File::exists('img/category' . $category->image)) {
-                File::delete('img/category' . $category->image);
-            }
-        $category->delete();
 
+            // Delete Category Image
+            if ( File::exists('images/category/' . $category->image ) ){
+                        File::delete('images/category/' . $category->image);
+            }
+            $category->delete();
         }
         return redirect()->route('manageCategory');
-
     }
 }

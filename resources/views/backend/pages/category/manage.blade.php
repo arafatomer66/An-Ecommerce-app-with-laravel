@@ -49,7 +49,7 @@
 								@if ( $category->image == NULL )
 									No Image Attached
 								@else
-									<img src="{{ asset('img/category/' . $category->image ) }}" width="100">
+									<img src="{{ asset('images/category/' . $category->image ) }}" width="40">
 								@endif
 							</td>
 							<td>
@@ -88,16 +88,16 @@
 
 							</td>
 					    </tr>
-					    {{-- @php
+					    @php
 				  			$i++;
-				  		@endphp --}}
-				  	@endforeach
+				  		@endphp
+				  	@endforeach		    
 
 				  </tbody>
 				</table>
 				<!-- Category Table End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

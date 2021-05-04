@@ -22,7 +22,7 @@
               <div class="card card-body">
                 <!-- Create New Category Form Start -->
                 <form action="{{ route('updateProduct', $product->id) }}" method="POST" enctype="multipart/form-data">
-                  @csrf
+                  @csrf                 
                   <div class="form-group">
                     <label>Product Title</label>
                     <input type="text" name="title" class="form-control" value="{{ $product->title }}">
@@ -133,7 +133,7 @@
                 </form>
                 <!-- Create New Category Form End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

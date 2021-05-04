@@ -80,7 +80,7 @@
             <div class="form-group">
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Re-Type Your Password">
             </div><!-- form-group -->
-
+            
 
             <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and terms of use of our website.</div>
 

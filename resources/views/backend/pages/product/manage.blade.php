@@ -5,7 +5,7 @@
       <div class="br-pagetitle">
         <i class="icon ion-ios-home-outline"></i>
         <div>
-          <h4>Manage Products</h4>
+          <h4>Manage All Product</h4>
           <p class="mg-b-0">Do bigger things with Bracket plus, the responsive bootstrap 4 admin template.</p>
         </div>
       </div>
@@ -27,15 +27,14 @@
 				      <th scope="col">#Sl</th>
 				      <th scope="col">Image</th>
 				      <th scope="col">Title</th>
-				      <th scope="col">Slug</th>
-				      {{-- <th scope="col">Description</th> --}}
-				      <th scope="col">Regular price</th>
-				      <th scope="col">Offered price</th>
-				      <th scope="col">Quantity</th>
-				      <th scope="col">Status</th>
-				      <th scope="col">Featured</th>
 				      <th scope="col">Brand</th>
-				      <th scope="col">Cateogry</th>
+				      <th scope="col">Category</th>				      
+				      <th scope="col">Slug</th>
+				      <th scope="col">Regular Price</th>
+				      <th scope="col">Offer Price</th>
+				      <th scope="col">Quantity</th>
+				      <th scope="col">Featured</th>
+				      <th scope="col">Status</th>
 				      <th scope="col">Action</th>
 				    </tr>
 				  </thead>
@@ -48,35 +47,51 @@
 				  	@foreach( $products as $product )
 					  	<tr>
 							<th scope="row"> {{ $i }} </th>
-                            <td>
-                                @php $j=1;  @endphp
-                            @foreach ($product->images as $image )
-                            @if( $j>0 )
-                            <img src="{{asset('img/products/' . $image->image)}}" width="25" alt="image">
-
-                            @endif
-                             @php $j--;  @endphp
-                            @endforeach
-                        </td>
+							<td>
+								@php $j = 1; @endphp
+								@foreach ( $product->images as $image  )
+									@if ( $j > 0 )
+										<img src="{{ asset('images/products/' . $image->image ) }}" width="25">
+									@endif
+									@php $j--; @endphp
+								@endforeach
+							</td>
 							<td>{{ $product->title }}</td>
+							<td> {{ $product->brand->name }} </td>
+							<td> {{ $product->category->name }} </td>										
 							<td>{{ $product->slug }}</td>
-							<td>{{ $product->regular_price }}</td>
-							<td>{{ $product->offer_price }}</td>
-							<td>{{ $product->quantity }}</td>
-							<td>{{ $product->status }}</td>
-							<td>{{ $product->is_featured }}</td>
-							{{-- <td>{{ $product->description }}</td> --}}
-
-                            <td>{{ $product->category->name }}</td>
-							<td>{{ $product->brand->name }}</td>
+							<td>{{ $product->regular_price }} BDT</td>
+							<td>
+								@if( $product->offer_price == NULL )
+									No Offer
+								@elseif( $product->offer_price != NULL )
+									{{ $product->offer_price }} BDT
+								@endif
+							</td>
+							<td>{{ $product->quantity }} Pcs</td>
+							<td>
+								@if( $product->is_featured == 1 )
+									<span class="badge badge-success">Yes</span>
+								@elseif( $product->is_featured == 0 )
+									<span class="badge badge-primary">No</span>
+								@endif
+							</td>
+							<td>
+								@if( $product->status == 1 )
+									<span class="badge badge-success">Active</span>
+								@elseif( $product->status == 0 )
+									<span class="badge badge-danger">In Active</span>
+								@endif
+							</td>
+							
 							<td>
 								<div class="btn-group">
-									<a href="" class="btn btn-success btn-sm">Update</a>
-									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="">Delete</button>
+									<a href="{{ route('editProduct', $product->id) }}" class="btn btn-success btn-sm">Update</a>
+									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteproduct">Delete</button>
 								</div>
 
 								<!-- Modal -->
-								<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade" id="deleteproduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
@@ -87,7 +102,7 @@
 								      </div>
 								      <div class="modal-body">
 								       	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-								        <form action="" method="POST">
+								        <form action="{{ route('deleteProduct', $product->id ) }}" method="POST">
 								        	@csrf
 								        	<button type="submit" class="btn btn-danger">Delete</button>
 								        </form>
@@ -101,13 +116,13 @@
 					    @php
 				  			$i++;
 				  		@endphp
-				  	@endforeach
+				  	@endforeach		    
 
 				  </tbody>
 				</table>
 				<!-- brand Table End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 

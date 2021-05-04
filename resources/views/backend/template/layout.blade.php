@@ -21,7 +21,7 @@
 
     <!-- ########## START: MAIN PANEL ########## -->
       @yield('dashboard-content')
-
+      
       @include('backend.include.footer')
     </div><!-- br-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->

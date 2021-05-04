@@ -22,7 +22,7 @@
               <div class="card card-body">
                 <!-- Create New Category Form Start -->
                 <form action="{{ route('storeCategory') }}" method="POST" enctype="multipart/form-data">
-                	@csrf
+                	@csrf                	
                 	<div class="form-group">
                 		<label>Category Name</label>
                 		<input type="text" name="cat_name" class="form-control">
@@ -44,7 +44,7 @@
                 			<option value="0">Select a Primary Category (Optional)</option>
                 			@foreach( $parent_categories as $parent )
                 				<option value="{{ $parent->id }}">{{ $parent->name }}</option>
-                			@endforeach
+                			@endforeach                			
                 		</select>
                 	</div>
 
@@ -55,7 +55,7 @@
                 </form>
                 <!-- Create New Category Form End -->
               </div><!-- card -->
-            </div><!-- col -->
+            </div><!-- col -->            
           </div><!-- row -->
 
 
