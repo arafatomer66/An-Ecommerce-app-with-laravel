@@ -57,11 +57,7 @@
                                     <li><a href="{{ route('vlogin') }}"><i class="fa fa-user"></i> Login</a></li>
                                     <li><a href="{{ route('vRegister') }}"><i class="fa fa-lock"></i> Register</a></li>
 
-                                @endif
-
-
-
-                                
+                                @endif                               
                                 
                             </ul>
                         </div>
@@ -85,29 +81,17 @@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{ route('homepage') }}" class="active">Home</a></li>
-                                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li> 
-                                        <li><a href="checkout.html">Checkout</a></li> 
-                                        <li><a href="cart.html">Cart</a></li> 
-                                        <li><a href="login.html">Login</a></li> 
-                                    </ul>
-                                </li> 
-                                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-                                <li><a href="404.html">404</a></li>
+                                <li><a href="{{ route('product.all') }}" class="active">Shop</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search"/>
+                        <div class="pull-right">
+                            <form action="{{ route('search') }}" method="get">
+                                @csrf
+                                <input type="text" placeholder="Search" name="search" class="form-control" />
+                            </form>
                         </div>
                     </div>
                 </div>

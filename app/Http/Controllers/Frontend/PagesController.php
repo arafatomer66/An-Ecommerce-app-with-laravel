@@ -22,9 +22,21 @@ class PagesController extends Controller
 
         $mobilePhones = Category::orderBy('id', 'desc')->where('parent_id', '1')->take(6)->get();
 
-        // var_dump($mobilePhones);
-        // exit();
-
         return view ('frontend.pages.index', compact('featuredProducts', 'mobilePhones'));
+    }
+
+
+    public function search(Request $request){
+
+        $search = $request->search;
+
+        $products = Product::orWhere('title', 'like', '%'. $search . '%' )
+        ->orWhere('description', 'like', '%'. $search . '%' )
+        ->orWhere('slug', 'like', '%'. $search . '%' )
+        ->orderBy('id', 'desc')->paginate(40);
+
+        return view('frontend.pages.products.search', compact('search', 'products'));
+
+
     }
 }

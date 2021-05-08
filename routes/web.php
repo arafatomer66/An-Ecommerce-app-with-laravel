@@ -60,14 +60,28 @@ Auth::routes();
 
 
 // Product Page's Route
-Route::group(['prefix' => '/product'], function(){
-	Route::get('/', 'Frontend\WebProductController@index')->name('product');
-	Route::get('/{slug}', 'Frontend\WebProductController@show')->name('product.show');
+Route::group(['prefix' => '/products'], function(){
+	// All Product Page
+	Route::get('/all', 'Frontend\ProductsController@index')->name('product.all');
+	// Product Single Details Page
+	Route::get('/{slug}', 'Frontend\ProductsController@show')->name('product.show');
 
-	// Parent Category 
-	Route::get('/', 'Frontend\CategoriesController@index')->name('categories.index');
-	// Single Category Product List
+	// Category Page View 
+	Route::get('/', 'Backend\CategoryController@index')->name('categories.index');
+	// Single Category Product Page View
 	Route::get('/category/{id}', 'Backend\CategoryController@show')->name('categories.show');
+});
+
+
+// Products Search
+Route::get('/search', 'Frontend\PagesController@search')->name('search'); 
+
+
+Route::group(['prefix' => '/cart'], function(){
+	Route::get('/', 'Frontend\CartsController@index')->name('cart');
+	Route::post('/store', 'Frontend\CartsController@store')->name('cart.store');
+	Route::post('/update/{id}', 'Frontend\CartsController@update')->name('cart.update');
+	Route::post('/delete/{id}', 'Frontend\CartsController@delete')->name('cart.delete');
 });
 
 

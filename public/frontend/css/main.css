@@ -782,6 +782,7 @@ h2.title:before {
     overflow: hidden;
     padding-top: 20px;
     position: relative;
+    margin-bottom: 50px;
 }
 
 .price-range {
@@ -1244,7 +1245,7 @@ h2.title {
     color: #FE980F;
     float: left;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     margin-right: 20px;
     margin-top: 0px;
@@ -2455,4 +2456,12 @@ textarea {
     width: 70px;
     height: 70px;
     border: 2px solid orange;
+}
+.offer-price{
+    display: block !important;
+    width: 100%;
+}
+.regular-price{
+    display: block !important;
+    width: 100%;
 }

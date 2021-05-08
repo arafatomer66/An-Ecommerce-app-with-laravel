@@ -20,14 +20,15 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                         <div class="productinfo text-center">
-                                            
-                                            @php  $i = 1; @endphp
-                                            @foreach( $fp->images as $image )
-                                                @if ( $i > 0 )
-                                                    <img src="{{ asset('images/products/' . $image->image) }}" alt="" />
-                                                @endif
-                                                @php  $i--; @endphp
-                                            @endforeach
+                                            <a href="{{ route('product.show', $fp->slug) }}">
+                                                @php  $i = 1; @endphp
+                                                @foreach( $fp->images as $image )
+                                                    @if ( $i > 0 )
+                                                        <img src="{{ asset('images/products/' . $image->image) }}" alt="" />
+                                                    @endif
+                                                    @php  $i--; @endphp
+                                                @endforeach
+                                            </a>
 
                                             <h2>
                                                 @if( $fp->offer_price != NULL )
@@ -36,7 +37,9 @@
                                                     {{$fp->regular_price}}
                                                 @endif
                                             </h2>
-                                            <p>{{ $fp->title }}</p>
+                                            <a href="{{ route('product.show', $fp->slug) }}">
+                                                <p>{{ $fp->title }}</p>
+                                            </a>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <div class="product-overlay">
@@ -48,7 +51,9 @@
                                                         {{$fp->regular_price}}
                                                     @endif
                                                 </h2>
-                                                <p>{{ $fp->title }}</p>
+                                                <a href="{{ route('product.show', $fp->slug) }}">
+                                                    <p>{{ $fp->title }}</p>
+                                                </a>
                                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>

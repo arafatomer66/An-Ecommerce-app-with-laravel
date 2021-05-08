@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Division;
-use App\Models\Backend\District;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class DistrictController extends Controller
+class CartsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +14,8 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $districts = District::orderBy('name', 'asc')->get();
-        return view('backend.pages.district.manage', compact('districts'));
+        // Return the View for Cart Page
+
     }
 
     /**
@@ -29,7 +25,7 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.district.create');
+        //
     }
 
     /**
@@ -40,22 +36,7 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the Division Field
-        $request->validate([
-            'name'                  => 'required|max:255',
-            'division_id'           => 'required',          
-        ],
-        [
-            'name'                  => 'Please Provide Valid Division Name',
-            'division_id'           => 'Please Set a Priority Number to Show on Screen', 
-        ]);
-
-        $division = new District();
-        $division->name             = $request->name;
-        $division->division_id     = $request->division_id;
-        $division->save();
-
-        return redirect()->route('manageDistrict');
+        //
     }
 
     /**
@@ -98,7 +79,7 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
     }

@@ -63,7 +63,7 @@
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror  
 
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>

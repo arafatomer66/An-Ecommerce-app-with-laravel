@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Category;
-use Illuminate\Http\Request;
+use App\Models\Backend\Product;
+use App\Models\Backend\Brand;
 use Illuminate\Support\Str;
 use Image;
 use File;
@@ -31,7 +34,7 @@ class CategoryController extends Controller
     }
 
 
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -93,7 +96,7 @@ class CategoryController extends Controller
         return redirect()->route('manageCategory');
     }
 
-
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -104,7 +107,7 @@ class CategoryController extends Controller
     public function edit(Category $category, $id)
     {
         $parent_categories = Category::orderBy('name', 'asc')->where('parent_id', 0)->get();
-
+        
         $category = Category::find($id);
 
         if ( !is_null($category) ){
@@ -114,7 +117,7 @@ class CategoryController extends Controller
             return route('manageCategory');
         }
 
-
+        
     }
 
     /**
@@ -188,7 +191,7 @@ class CategoryController extends Controller
             if ( File::exists('images/category/' . $category->image ) ){
                         File::delete('images/category/' . $category->image);
             }
-            $category->delete();
+            $category->delete(); 
         }
         return redirect()->route('manageCategory');
     }
