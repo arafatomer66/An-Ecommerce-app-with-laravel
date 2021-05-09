@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\FuncCall;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ Route::group(['prefix' => '/visitor'], function(){
 	Route::get('/edit', 'Frontend\VisitorController@edit')->name('editVisitor');
 	Route::post('/profile/update', 'Frontend\VisitorController@update')->name('updateVisitor');
 });
-	
+
 Auth::routes();
 
 
@@ -66,7 +67,7 @@ Route::group(['prefix' => '/products'], function(){
 	// Product Single Details Page
 	Route::get('/{slug}', 'Frontend\ProductsController@show')->name('product.show');
 
-	// Category Page View 
+	// Category Page View
 	Route::get('/', 'Backend\CategoryController@index')->name('categories.index');
 	// Single Category Product Page View
 	Route::get('/category/{id}', 'Backend\CategoryController@show')->name('categories.show');
@@ -74,7 +75,7 @@ Route::group(['prefix' => '/products'], function(){
 
 
 // Products Search
-Route::get('/search', 'Frontend\PagesController@search')->name('search'); 
+Route::get('/search', 'Frontend\PagesController@search')->name('search');
 
 
 Route::group(['prefix' => '/cart'], function(){
@@ -83,7 +84,6 @@ Route::group(['prefix' => '/cart'], function(){
 	Route::post('/update/{id}', 'Frontend\CartsController@update')->name('cart.update');
 	Route::post('/delete/{id}', 'Frontend\CartsController@delete')->name('cart.delete');
 });
-
 
 
 
